@@ -5,7 +5,7 @@
   "description": "MERN Stack",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server"
+    "start": "node server"
   },
   "author": "Arnold Haban",
   "license": "ISC",

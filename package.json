@@ -1,0 +1,26 @@
+{
+  "name": "rendezvous-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MERN Stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "author": "Arnold Haban",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.12"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "heroku": "^7.40.0",
+    "prettier": "^2.0.5"
+  }
+}

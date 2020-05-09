@@ -20,9 +20,9 @@ usersRouter.route('/:id').delete((req, res) => {
 });
 
 usersRouter.route('/user').post((req, res) => {
-    const { user, avatar, name, password, email } = req.body;
+    const { username, avatar, name, password, email } = req.body;
     const newUser = new User({
-        user,
+        username,
         avatar,
         name,
         password,
@@ -35,10 +35,10 @@ usersRouter.route('/user').post((req, res) => {
 });
 
 usersRouter.route('/:id').put((req, res) => {
-    const { user, avatar, name, password, email} = req.body;
+    const { username, avatar, name, password, email} = req.body;
     User.findById(req.params.id)
         .then(update => {
-            update.user = user;
+            update.username = user;
             update.avatar = avatar;
             update.name = name;
             update.password = password;

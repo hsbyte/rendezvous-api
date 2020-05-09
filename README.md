@@ -10,6 +10,7 @@
 * ```Node.js```
 * ```Express```
 * ```JavaScript```
+* ```Mongoose``` - Object modeling tool 
 
 Still a work in progress.
 

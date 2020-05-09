@@ -19,7 +19,7 @@ usersRouter.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json({ message: 'User id not found' }))
 });
 
-usersRouter.route('/user').post((req, res) => {
+usersRouter.route('/').post((req, res) => {
     const { username, avatar, name, password, email } = req.body;
     const newUser = new User({
         username,
@@ -28,6 +28,8 @@ usersRouter.route('/user').post((req, res) => {
         password,
         email
     });
+
+    console.log(username, avatar, name, password, email)
 
     newUser.save()
         .then(() => res.json('User added'))
@@ -38,7 +40,7 @@ usersRouter.route('/:id').put((req, res) => {
     const { username, avatar, name, password, email} = req.body;
     User.findById(req.params.id)
         .then(update => {
-            update.username = user;
+            update.username = username;
             update.avatar = avatar;
             update.name = name;
             update.password = password;

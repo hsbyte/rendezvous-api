@@ -8,9 +8,23 @@ usersRouter.route('/').get((req, res) => {
 });
 
 usersRouter.route('/:id').get((req, res) => {
-    User.findById(req.params.id)
+    User.find(req.params.id)
         .then(user => res.json(user))
-        .catch(err => res.status(400).json({error: `User not Found`}));
+        .catch(() => res.status(400).json({error: `User not Found`}));
+});
+
+usersRouter.route('/:col/:query').get((req, res) => {
+    let query;
+    if (req.params.col === 'username') {
+        query = { username: req.params.query };
+    }
+    if (query) {
+        User.find(query)
+            .then(user => res.json(user))
+            .catch(() => res.status(400).json({error: `User not Found`}));
+    } else {
+        return res.status(400).json({error: `Query column not defined`});
+    }
 });
 
 usersRouter.route('/:id').delete((req, res) => {
@@ -28,9 +42,6 @@ usersRouter.route('/').post((req, res) => {
         password,
         email
     });
-
-    console.log(username, avatar, name, password, email)
-
     newUser.save()
         .then(() => res.json('User added'))
         .catch*(err => res.status(400).json(err));

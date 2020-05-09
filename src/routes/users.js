@@ -15,8 +15,14 @@ usersRouter.route('/:id').get((req, res) => {
 
 usersRouter.route('/:col/:query').get((req, res) => {
     let query;
-    if (req.params.col === 'username') {
-        query = { username: req.params.query };
+    switch (req.params.col) {
+        case 'username':
+            query = { username: req.params.query };
+            break;
+        case 'email':
+            query = { email: req.params.query };
+        default:
+            // none
     }
     if (query) {
         User.find(query)

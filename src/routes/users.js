@@ -50,7 +50,7 @@ usersRouter.route('/').post((req, res) => {
     });
     newUser.save()
         .then(() => res.json('User added'))
-        .catch*(err => res.status(400).json(err));
+        .catch(err => res.status(400).json(err));
 });
 
 usersRouter.route('/:id').put((req, res) => {

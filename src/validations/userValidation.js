@@ -7,13 +7,15 @@ exports.userValidation = (data) => {
             .required(),
         name: Joi.string()
             .required(),
+        avatar: Joi.string(),
         email: Joi.string()
             .min(6)
             .required()
             .email(),
         password: Joi.string()
             .min(6)
-            .required()
+            .required(),
+        slogan: Joi.string()
     });
     return schema.validate(data);
 }

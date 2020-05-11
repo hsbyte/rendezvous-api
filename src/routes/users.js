@@ -67,14 +67,15 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
     const { error } = userValidation(req.body);
     if ( error ) return res.status(400).json({ error: error.details[0].message });
 
-    const { username, avatar, name, password, email} = req.body;
+    const { username, avatar, name, password, email, slogan } = req.body;
     User.findById(req.params.id)
         .then(update => {
-            update.username = username;
-            update.avatar = avatar;
-            update.name = name;
-            update.password = password;
-            update.email = email;
+            update.username === username ? null : update.username = username;
+            update.avatar === avatar ? null : update.avatar = avatar;
+            update.name === name ? null : update.name = name;
+            update.password === password ? null : update.password = password;
+            update.email === email ? null : update.email = email;
+            update.slogan === slogan ? null : update.slogan = slogan;
 
             update.save()
                 .then(user => res.json(user))

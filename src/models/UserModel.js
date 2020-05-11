@@ -7,11 +7,19 @@ const userSchema = new mongoose.Schema({
         trim: true,
         min: 3
     },
-    avatar: { type: String },
+    avatar: String,
     name: { type: String, required: true },
     password: { type: String, max: 1024 },
-    email: { type: String },
-    slogan: { type: String }
+    email: { type: String, trim: true },
+    slogan: String,
+    language: String,
+    description: String,
+    social: Array,
+    group_id: Number,
+    location: {
+        lat: Number,
+        lon: Number
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema); // User collection

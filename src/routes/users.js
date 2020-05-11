@@ -53,7 +53,6 @@ usersRouter.post('/', verifyToken, (req, res) => {
     
     const newUser = new User({
         username,
-        avatar,
         name,
         password: hashedPasswd,
         email
@@ -67,17 +66,30 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
     const { error } = userValidation(req.body);
     if ( error ) return res.status(400).json({ error: error.details[0].message });
 
-    const { username, avatar, name, password, email, slogan } = req.body;
+    const {
+        username,
+        avatar,
+        name,
+        password,
+        email,
+        slogan,
+        language,
+        description,
+        social
+    } = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hashedPasswd = bcrypt.hashSync(password, salt);
     User.findById(req.params.id)
         .then(update => {
             update.username = username;
-            update.avatar = avatar;
+            avatar ? update.avatar = avatar : null;
             update.name = name;
             update.password = hashedPasswd;
             update.email = email;
-            update.slogan = slogan;
+            slogan ? update.slogan = slogan : null;
+            language ? update.language = language : null;
+            description ? update.description = description : null;
+            social ? update.social = social : null;
 
             update.save()
                 .then(user => res.json(user))

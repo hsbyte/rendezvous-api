@@ -21,8 +21,10 @@ mongoose.connect(uri, {
 const connection = mongoose.connection;
 connection.once('open', () => console.log('MongoDB connection established successfully'))
 
+const authRouter = require('./src/routes/auth');
 const userRouter = require('./src/routes/users');
 
-app.use('/user', userRouter);
+app.use('/api', authRouter);
+app.use('/api/user', userRouter);
 
 app.listen(port, () => console.log(`Server is running on port: ${port}`));

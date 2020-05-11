@@ -1,19 +1,23 @@
 const usersRouter = require('express').Router();
-const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const { verifyToken } = require('../validations/verifyToken');
+const { userValidation } = require('../validations/userValidation');
 
-usersRouter.route('/').get((req, res) => {
+usersRouter.get('/', verifyToken, (req, res) => {
     User.find()
         .then(users => res.json(users))
         .catch(err => res.status(400).json(err));
 });
 
-usersRouter.route('/:id').get((req, res) => {
-    User.find(req.params.id)
+usersRouter.get('/:id', verifyToken, (req, res) => {
+    console.log(req.params.id)
+    User.find({ _id: req.params.id })
         .then(user => res.json(user))
         .catch(() => res.status(400).json({error: `User not Found`}));
 });
 
-usersRouter.route('/:col/:query').get((req, res) => {
+usersRouter.get('/:col/:query', verifyToken, (req, res) => {
     let query;
     switch (req.params.col) {
         case 'username':
@@ -33,27 +37,36 @@ usersRouter.route('/:col/:query').get((req, res) => {
     }
 });
 
-usersRouter.route('/:id').delete((req, res) => {
+usersRouter.delete('/:id', verifyToken, (req, res) => {
     User.findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'User deleted' }))
         .catch(err => res.status(400).json({ message: 'User id not found' }))
 });
 
-usersRouter.route('/').post((req, res) => {
+usersRouter.post('/', verifyToken, (req, res) => {
+    const { error } = userValidation(req.body);
+    if ( error ) return res.status(400).json({ error: error.details[0].message });
+
     const { username, avatar, name, password, email } = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPasswd = bcrypt.hashSync(password, salt);
+    
     const newUser = new User({
         username,
         avatar,
         name,
-        password,
+        password: hashedPasswd,
         email
     });
     newUser.save()
         .then(() => res.json('User added'))
-        .catch(err => res.status(400).json(err));
+        .catch(err => res.status(400).json({ error: err.errmsg }));
 });
 
-usersRouter.route('/:id').put((req, res) => {
+usersRouter.put('/:id', verifyToken, (req, res) => {
+    const { error } = userValidation(req.body);
+    if ( error ) return res.status(400).json({ error: error.details[0].message });
+
     const { username, avatar, name, password, email} = req.body;
     User.findById(req.params.id)
         .then(update => {

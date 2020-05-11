@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String },
     name: { type: String, required: true },
     password: { type: String, max: 1024 },
-    email: { type: String }
+    email: { type: String },
+    slogan: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema); // User collection

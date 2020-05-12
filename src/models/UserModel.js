@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
         trim: true,
         min: 3
     },
-    avatar: { data: Buffer, content_type: String },
+    avatar: {
+        data: Buffer,
+        content_type: String
+    },
     name: { type: String, required: true },
     password: { type: String, max: 1024 },
     email: { type: String, trim: true },

@@ -100,7 +100,7 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
                     content_type: avatar.content_type
                 }
             }
-            // update.avatar.data = new Buffer.from(update.avatar.data).toString('base64');
+            // console.log(new Buffer.from(update.avatar.data, 'base64').toString('base64'))
             update.save()
                 .then(user => res.json(user))
                 .catch(error => res.json(400).json({ error }))

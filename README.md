@@ -10,6 +10,7 @@
 * ```Node.js```
 * ```Express```
 * ```JavaScript```
+* ```JWT``` - Json Web Token
 * ```Mongoose``` - Object modeling tool 
 
 Still a work in progress.

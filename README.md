@@ -11,7 +11,7 @@
 * ```Express```
 * ```JavaScript```
 * ```JWT``` - Json Web Token
-* ```Mongoose``` - Object modeling tool 
+* ```Mongoose``` - Object modeling tool, an Object Data Modeling (ODM) library for MongoDB and Node.js
 
 Still a work in progress.
 

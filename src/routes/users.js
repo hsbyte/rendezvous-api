@@ -1,5 +1,7 @@
 const usersRouter = require('express').Router();
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+
 const User = require('../models/UserModel');
 const { verifyToken } = require('../validations/verifyToken');
 const { userValidation } = require('../validations/userValidation');
@@ -52,6 +54,7 @@ usersRouter.post('/', verifyToken, (req, res) => {
     const hashedPasswd = bcrypt.hashSync(password, salt);
     
     const newUser = new User({
+        // _id: new mongoose.Types.Objectd(),
         username,
         name,
         password: hashedPasswd,
@@ -77,12 +80,12 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
         description,
         social
     } = req.body;
+
     const salt = bcrypt.genSaltSync(10);
     const hashedPasswd = bcrypt.hashSync(password, salt);
     User.findById(req.params.id)
         .then(update => {
             update.username = username;
-            avatar ? update.avatar = avatar : null;
             update.name = name;
             update.password = hashedPasswd;
             update.email = email;
@@ -90,6 +93,13 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
             language ? update.language = language : null;
             description ? update.description = description : null;
             social ? update.social = social : null;
+
+            if ( avatar ) {
+                update.avatar = {
+                    data: fs.readFileSync(avatar.data),
+                    content_type: avatar.content_type
+                }
+            }
 
             update.save()
                 .then(user => res.json(user))

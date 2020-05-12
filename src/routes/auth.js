@@ -15,7 +15,6 @@ authRouter.post('/register', (req, res) => {
     
     const newUser = new User({
         username,
-        avatar,
         name,
         password: hashedPasswd,
         email

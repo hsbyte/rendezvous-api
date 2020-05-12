@@ -7,7 +7,10 @@ exports.userValidation = (data) => {
             .required(),
         name: Joi.string()
             .required(),
-        avatar: Joi.string(),
+        avatar: {
+            data: Joi.string(),
+            content_type: Joi.string(),
+        },
         email: Joi.string()
             .min(6)
             .required()

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         min: 3
     },
     avatar: {
-        data: Buffer,
+        content: String,
         content_type: String
     },
     name: { type: String, required: true },

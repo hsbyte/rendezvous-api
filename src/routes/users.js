@@ -96,11 +96,12 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
 
             if ( avatar ) {
                 update.avatar = {
-                    data: fs.readFileSync(avatar.data),
+                    content: new Buffer.from(fs.readFileSync(avatar.content), 'base64').toString('base64'),
                     content_type: avatar.content_type
                 }
             }
             // console.log(new Buffer.from(update.avatar.data, 'base64').toString('base64'))
+            // console.log(update.avatar.data)
             update.save()
                 .then(user => res.json(user))
                 .catch(error => res.json(400).json({ error }))

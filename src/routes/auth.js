@@ -35,7 +35,7 @@ authRouter.post('/login', (req, res) => {
             
             const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
             return res.header('Authorization-Token', token)
-                .json({ token });
+                .json({ _id: user._id, token });
         })
         .catch(err => res.status(404).json({ error: 'Invalid email' }))
 })

@@ -93,15 +93,13 @@ usersRouter.put('/:id', verifyToken, (req, res) => {
             language ? update.language = language : null;
             description ? update.description = description : null;
             social ? update.social = social : null;
-
             if ( avatar ) {
                 update.avatar = {
                     content: new Buffer.from(fs.readFileSync(avatar.content), 'base64').toString('base64'),
                     content_type: avatar.content_type
                 }
             }
-            // console.log(new Buffer.from(update.avatar.data, 'base64').toString('base64'))
-            // console.log(update.avatar.data)
+
             update.save()
                 .then(user => res.json(user))
                 .catch(error => res.json(400).json({ error }))

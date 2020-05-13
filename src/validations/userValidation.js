@@ -18,7 +18,10 @@ exports.userValidation = (data) => {
         password: Joi.string()
             .min(6)
             .required(),
-        slogan: Joi.string()
+        slogan: Joi.string(),
+        language: Joi.array(),
+        description: Joi.string(),
+        social: Joi.array()
     });
     return schema.validate(data);
 }

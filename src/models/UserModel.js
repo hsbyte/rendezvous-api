@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, max: 1024 },
     email: { type: String, trim: true },
     slogan: String,
-    language: String,
+    language: Array,
     description: String,
     social: Array,
     group_id: Number,

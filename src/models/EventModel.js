@@ -5,5 +5,6 @@ const eventSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true
-    }
+    },
+    public: Boolean
 }, { timestamps: true } );

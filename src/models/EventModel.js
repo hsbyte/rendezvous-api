@@ -6,5 +6,6 @@ const eventSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
-    public: Boolean
+    public: Boolean,
+    photos: Array
 }, { timestamps: true } );

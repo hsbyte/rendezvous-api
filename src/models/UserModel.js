@@ -19,15 +19,19 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    banner: {
+        content: String,
+        content_type: String
+    },
     slogan: String,
     language: Array,
     description: String,
     social: Array,
-    group_id: Number,
     location: {
         lat: Number,
         lon: Number
-    }
+    },
+    group_id: Array
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema); // User collection

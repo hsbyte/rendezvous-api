@@ -10,6 +10,10 @@ exports.userValidation = (data) => {
             content: Joi.string(),
             content_type: Joi.string(),
         },
+        banner: {
+            content: Joi.string(),
+            content_type: Joi.string()
+        },
         email: Joi.string()
             .min(6)
             .required()
